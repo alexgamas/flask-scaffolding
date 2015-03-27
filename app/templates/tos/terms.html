@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="jumbotron">
+		<h2>{{ term.title }}</h2>
+		<pre>{{ term.text }}</pre>
+		<p>
+			<h6 style="text-align: right;">
+				
+				Release date: {{ term.date |datetimeformat(tformat="%A, %d %B %Y") }}
+			</h6>
+		</p>
+	</div>
+
+{% endblock %}

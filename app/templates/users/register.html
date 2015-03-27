@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	{% from "forms/macros.html" import render_field %}
+	<form method="POST" action="." class="form-small">
+		{{ form.csrf_token }}
+		<h2 class="form-small-heading">Please Sign Up</h2>
+		{{ render_field(form.name, class="form-control", placeholder="Name") }}
+		{{ render_field(form.email, class="form-control", placeholder="Email address") }}
+		{{ render_field(form.password, class="form-control", placeholder="Password") }}
+		{{ render_field(form.confirm, class="form-control", placeholder="Confirm password") }}
+		
+		<div style="display: table; width: 100%; padding-bottom: 10px;">
+			<div style="display: table-cell;">
+				{{ render_field(form.accept_tos) }} 
+			</div>
+			<div style="display: table-cell; text-align: right;">
+				<a href="{{url_for('terms.read')}}">Read</a>
+			</div>
+		</div>
+		
+		<label>ReCaptcha</label>
+		{{ form.recaptcha }}
+		<input type="submit" value="Sign Up" class="btn btn-lg btn-primary btn-block">
+	</form>
+{% endblock %}

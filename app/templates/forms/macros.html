@@ -1,0 +1,25 @@
+{% macro render_field(field) %}
+	<div class="form_field">
+		<!--
+		{{ field.name }}
+		-->
+		{% if field.errors %}
+			{% set css_class = 'has_error ' + kwargs.pop('class', '') %}
+			{{ field(class=css_class, **kwargs) }}
+			<div class="errors">
+				{% for error in field.errors %}
+					<div>{{ error|e }}</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div>
+				{{ field(**kwargs) }}
+				{% if field.type == 'BooleanField' %}
+					<div style="display: inline; padding-left: 5px;">
+						{{ field.label() }}
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+	</div>
+{% endmacro %}
