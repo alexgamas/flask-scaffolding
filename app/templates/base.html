@@ -8,7 +8,7 @@
 		<meta name="author" content="Alex Gamas">
 		<link rel="shortcut icon" href="/static/img/favicon.png">
 
-		<title>{% block title %}EZ Booking{% endblock %}</title>
+		<title>{% block title %}{{ config.APP_TITLE }}{% endblock %}</title>
 		{% block css %}
 			<!-- Bootstrap core CSS -->
 			<link href="/static/css/bootstrap.css" rel="stylesheet">
@@ -51,7 +51,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">EZ Booking</a>
+					<a class="navbar-brand" href="#">{{ config.APP_NAME }}</a>
 				</div>
 				
 				<div class="navbar-collapse collapse">

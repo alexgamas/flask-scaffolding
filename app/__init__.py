@@ -22,8 +22,6 @@ from app.tos.views import mod as tosModule
 app.register_blueprint(indexModule)
 app.register_blueprint(usersModule)
 app.register_blueprint(tosModule)
-
-
 ###
 
 def gravatar_url(email, size=80):
@@ -34,11 +32,11 @@ def format_datetime(timestamp, tformat= '%Y-%m-%d'):
 	"""Format a timestamp for display."""
 	return timestamp.strftime(tformat)
 
+
 app.jinja_env.filters['gravatar'] = gravatar_url
 app.jinja_env.filters['datetimeformat'] = format_datetime
 
 ###
-
 @app.errorhandler(404)
 def not_found(error):
 	return render_template('404.html'), 404
