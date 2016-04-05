@@ -1,27 +1,38 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template, session
-from flask.ext.sqlalchemy import SQLAlchemy
-from hashlib import md5
-from datetime import datetime
-
+import jinja2
+#from flask.ext.sqlalchemy import SQLAlchemy
+#from hashlib import md5
+#from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object('config')
 
-db = SQLAlchemy(app)
+if app.config['DEBUG']:
+    for key in app.config:
+        print key, '=', app.config[key]
 
-import app.users.views as userView
 
-from app.index.views import mod as indexModule
-from app.users.views import mod as usersModule
-from app.tos.views import mod as tosModule
+
+views_dir =  app.config['VIEWS_DIR']
+
+views_loder = jinja2.ChoiceLoader([app.jinja_loader, jinja2.FileSystemLoader([views_dir])])
+app.jinja_loader = views_loder
+
+#db = SQLAlchemy(app)
+
+from app.controllers import home
+
+#from app.index.views import mod as indexModule
+#from app.users.views import mod as usersModule
+#from app.tos.views import mod as tosModule
 
 
 ###
-app.register_blueprint(indexModule)
-app.register_blueprint(usersModule)
-app.register_blueprint(tosModule)
+app.register_blueprint(home.mod)
+#app.register_blueprint(usersModule)
+#app.register_blueprint(tosModule)
 ###
 
 def gravatar_url(email, size=80):
@@ -37,18 +48,13 @@ app.jinja_env.filters['gravatar'] = gravatar_url
 app.jinja_env.filters['datetimeformat'] = format_datetime
 
 ###
-@app.errorhandler(404)
-def not_found(error):
-	return render_template('404.html'), 404
+#@app.errorhandler(404)
+#def not_found(error):
+#	return render_template('404.html'), 404
 
 
 
-@app.context_processor
-def inject_user():
-	user = userView.get_loged_user()
-	return dict(user = user)
-	
-	
-	
-
-
+#@app.context_processor
+#def inject_user():
+#	user = userView.get_loged_user()
+#	return dict(user = user)
